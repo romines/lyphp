@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . '/mymodule.php';
+// require_once __DIR__ . '/mymodule.php';
 
-$dir = $argv[1];
-$ext = $argv[2];
-
-$filtered = (new DirectoryFilter())->filter($dir, $ext);
-
+array_shift($argv);
+$extant = array_filter($argv, 'file_exists');
 array_map(function ($filename) {
-  echo $filename, "\n";
-}, $filtered);
+  // echo ($filename);
+  $file = new SplFileObject($filename);
+  $info = new SplFileInfo($filename);
+  echo $info->getFilename(), "\n";
+}, $extant);
 
  ?>
